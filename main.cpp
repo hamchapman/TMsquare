@@ -14,17 +14,19 @@ void cleanup(int, string&, int);
 
 int main()
 {
-    cout << "Please enter the length of time delay you would like between each operation of the Turing machine simulator (in seconds): ";
+    /* The user needs to enter a series of 0s as though they were inputting 0 symbols on to a Turing machine tape. This means entering just a single 0 if you wish to have the number one squared and then represented by 0s on the tape at the end. The code just below is to calculate a time delay between printing each stage of the Turing machine's process, should the user wish to use one.*/
+    
+    cout << "Please enter the length of time delay you would like between each operation of the Turing machine simulator, in seconds (if you wish to have no delay then enter 0): ";
     float N = 0;
     cin >> N;
     int W = N*1000000;
     
-    string toSquare = "";
+    string toSquare = "";      // initialising the Turing machine tape
     
-    cout << "Please enter the number that you would like to square in 0 form (e.g. for 4, type 0000): ";
+    cout << "Please enter the number that you would like to square in 0 form, e.g. for 4, type 0000 (the final output will show a representation of the tape of a Turing machine with all blank symbols, B, other than the final result, which will displayed as 0s): ";
     cin >> toSquare;
 
-    square(toSquare, W);
+    square(toSquare, W);      // calls the main function for the Turing machine
     
     return 0;
 }
@@ -35,13 +37,13 @@ string square(string& s, int W)
     cout << squared << endl;
     usleep(W);
     
-    squared = replaceChar(squared, s.length()+1, "#");
+    squared = replaceChar(squared, s.length()+1, "#");      // prints a # symbol so that the Turing machine can distinguish between different sections of the tape
     cout << squared << endl;
     usleep(W);
     
     zeroCopy(s.length(), squared, W);
     
-    squared = replaceChar(squared, s.length()*2+2, "#");
+    squared = replaceChar(squared, s.length()*2+2, "#");      // prints a # symbol so that the Turing machine can distinguish between different sections of the tape
     cout << squared << endl;
     usleep(W);
     
@@ -51,7 +53,7 @@ string square(string& s, int W)
     return squared;
 }
 
-string blankCreator(int n)
+string blankCreator(int n)      // adds an appropriate number of blank symbols to the tape string
 {
     string blanks = "";
     
@@ -61,14 +63,14 @@ string blankCreator(int n)
     return blanks;
 }
 
-string replaceChar(string str, int i, string ch)
+string replaceChar(string str, int i, string ch)      // funciton for replacing characters in strings
 {
     str[i] = ch[0];
     
     return str;
 }
 
-void zeroCopy(int n, string& s, int W)
+void zeroCopy(int n, string& s, int W)      // funciton for doing an initial copy of the number of 0s (q3-q7)
 {
     for(int i = 0; i < n; i++)
     {
@@ -78,7 +80,7 @@ void zeroCopy(int n, string& s, int W)
     }
 }
 
-void wholeSquare(int n, string& s, int W)
+void wholeSquare(int n, string& s, int W)      // function for printing the appropriate number of 0s to the tape so that the original number of 0s is squared (q11-q20)
 {
     for(int i = 0; i < n; i++)
     {
@@ -89,7 +91,7 @@ void wholeSquare(int n, string& s, int W)
     }
 }
 
-void soloMultiply(int n, int i, string& s, int W)
+void soloMultiply(int n, int i, string& s, int W)      // function for printing the appropriate number of 0s to the tape for each individual 0 in the section of the tape created from the original copy (q14-q17)
 {
     for(int j = n; j > 0; j--)
     {
@@ -108,7 +110,7 @@ void soloMultiply(int n, int i, string& s, int W)
     }
 }
 
-void cleanup(int n, string& s, int W)
+void cleanup(int n, string& s, int W)      // function that writes blank symbols over all squares of the tape otehr than the result (q21)
 {
     for(int i = 2*n+2; i > 0; i--)
     {
