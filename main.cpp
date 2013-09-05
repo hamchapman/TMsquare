@@ -70,28 +70,31 @@ string replaceChar(string str, int i, string ch)      // funciton for replacing 
     return str;
 }
 
-void zeroCopy(int n, string& s, int W)      // funciton for doing an initial copy of the number of 0s (q3-q7)
-{
-    for(int i = 0; i < n; i++)
-    {
-        s = replaceChar(s, n+2+i, "0");
-        cout << s << endl;
-        usleep(W);
-    }
-}
-
-void wholeSquare(int n, string& s, int W)      // function for printing the appropriate number of 0s to the tape so that the original number of 0s is squared (q11-q20)
+void zeroCopy(int n, string& s, int W)      // funciton for doing an initial copy of the number of 0s, and represents states q3-q7 on the transition diagram
 {
     for(int i = 0; i < n; i++)
     {
         s = replaceChar(s, 1+i, "1");
         cout << s << endl;
         usleep(W);
+        s = replaceChar(s, n+2+i, "0");
+        cout << s << endl;
+        usleep(W);
+    }
+}
+
+void wholeSquare(int n, string& s, int W)      // function for printing the appropriate number of 0s to the tape so that the original number of 0s is squared and represents states q11-q20 on the transition diagram
+{
+    for(int i = 0; i < n; i++)
+    {
+        s = replaceChar(s, 1+i, "0");
+        cout << s << endl;
+        usleep(W);
         soloMultiply(n, i, s, W);
     }
 }
 
-void soloMultiply(int n, int i, string& s, int W)      // function for printing the appropriate number of 0s to the tape for each individual 0 in the section of the tape created from the original copy (q14-q17)
+void soloMultiply(int n, int i, string& s, int W)      // function for printing the appropriate number of 0s to the tape for each individual 0 in the section of the tape created from the original copy and represents states q14-q17 on the transition diagram
 {
     for(int j = n; j > 0; j--)
     {
@@ -110,7 +113,7 @@ void soloMultiply(int n, int i, string& s, int W)      // function for printing 
     }
 }
 
-void cleanup(int n, string& s, int W)      // function that writes blank symbols over all squares of the tape otehr than the result (q21)
+void cleanup(int n, string& s, int W)      // function that writes blank symbols over all squares of the tape otehr than the result and represents states q21-q22 on the transition diagram
 {
     for(int i = 2*n+2; i > 0; i--)
     {
